@@ -14,9 +14,9 @@ require("./lib/ScraperClass.php");	// include the scraper tools
  */
 class Twitter extends Scraper
 {
-	var $username;	// username
-	var $password;	// password
-	var $info;	// user info
+	var $username;		// username
+	var $password;		// password
+	var $info;		// user info
 	var $statusinfo;	// statuses info
 	
 	public $limit = 5;	// status retrieve limit
@@ -36,7 +36,7 @@ class Twitter extends Scraper
 		$this->password = $password;	// assign password to temp
 
 		$data = $this->getInfo();	// get basic info
-		$this->info = $data;	// assign to temp
+		$this->info = $data;		// assign to temp
 		
 		$statusdata = $this->getStatusInfo();	// get status info
 		$this->statusinfo = $statusdata;	// assign to temp
@@ -225,31 +225,27 @@ class Twitter extends Scraper
 		{
 			// make sure its valid
 			$url = "http://twitter.com/users/show/".$username;
-			$get = curl_init($url);
-			curl_setopt($get, CURLOPT_RETURNTRANSFER, 1);
-			curl_setopt($get, CURLOPT_URL, $url);
-			$result = curl_exec($get);
-			$http_status = curl_getinfo($get, CURLINFO_HTTP_CODE);
-			curl_close($get);
+			$http_status = $this->getHTTPStatus($url);
 			
 			// if it is
 			if( $http_status == 200 )
 			{
+				$result = $this->load($url);	// load url
 				$parse = $this->parseXML($result);	// get data
 				
 				// take what you need
-				$info = array( "id" => $parse->id,
-									 "name" => $parse->name,
-									 "username" => $parse->screen_name,
-									 "location" => $parse->location,
-									 "description" => $parse->description,
-									 "website" => $parse->url,
-									 "avatar" => $parse->profile_image_url,
-									 "following" => $parse->friends_count,
-									 "followers" => $parse->followers_count,
-									 "background" => $parse->profile_background_image_url,
-									 "statusescount" => $parse->statuses_count
-									);
+				$info = array(  "id" => $parse->id,
+						"name" => $parse->name,
+						"username" => $parse->screen_name,
+						"location" => $parse->location,
+						"description" => $parse->description,
+						"website" => $parse->url,
+						"avatar" => $parse->profile_image_url,
+						"following" => $parse->friends_count,
+						"followers" => $parse->followers_count,
+						"background" => $parse->profile_background_image_url,
+						"statusescount" => $parse->statuses_count
+					      );
 									
 				return $info;	// and go
 			}
@@ -291,7 +287,7 @@ class Twitter extends Scraper
 				$results[$i]["statusid"] = $this->strip($status->id);	// get id
 				$results[$i]["text"] = $this->linkify($this->unescape($status->text));	// get the actual status
 				$results[$i]["retweets"] = $this->strip($status->retweet_count);	// get retweet count
-				$results[$i]["source"] = $this->strip($status->source);	// get the status publish source
+				$results[$i]["source"] = $this->strip($status->source);		// get the status publish source
 				$results[$i]["url"] = "http://twitter.com/".$username."/statuses/".$status->id;	// make status URL
 			}
 		}
@@ -341,9 +337,9 @@ class Twitter extends Scraper
 	{
 		// error messages
 		$messages = array( 404 => "Invalid Username",
-									   500 => "Invalid Password",
-									   200 => "OK",
-									);
+				   500 => "Invalid Password",
+				   200 => "OK",
+				 );
 		
 		return $messages[$code];	// shout error
 	}
