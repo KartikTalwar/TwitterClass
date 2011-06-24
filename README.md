@@ -30,7 +30,7 @@ To Install the class, you simply need to add this code
 * `getLatestStatus()`
 * `getLatestStatusURL()`
 * `getLatestStatusRetweets()`
-* `getStatuses(5)`
+* `getStatuses(n)`
 
 
 ## TODO
@@ -71,7 +71,7 @@ To Install the class, you simply need to add this code
 		
 		?>
 		
-1. **Getting 5 Latest Status** :
+1. **Getting 5 Latest Statuses** :
 	The following method will get the users first 5 statuses
 
 		<?php
