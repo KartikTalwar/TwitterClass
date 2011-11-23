@@ -355,7 +355,7 @@ class Twitter
 	 */
 	public function getHTTPStatus($url)
 	{
-		$get = curl_init($url);	// init curl
+		$get = $this->load($url);	// init curl
 	
 		curl_setopt($get, CURLOPT_RETURNTRANSFER, 1);
 		curl_setopt($get, CURLOPT_URL, $url);
