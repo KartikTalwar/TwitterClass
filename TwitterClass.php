@@ -8,7 +8,7 @@ ini_set("max_execution_time", 60);	// set execution time to a minute
  * The Twitter Class with helpful simple functions to embed the user details on your site
  *
  * @author     	Kartik Talwar
- * @version    	1.0
+ * @version    	1.2
  * @example	./examples.php
  * @link	http://github.com/KartikTalwar/Twitter-Class
  */
@@ -17,9 +17,9 @@ class Twitter
 	var $username;		// username
 	var $password;		// password
 	var $info;		// user info
-	var $statusinfo;	// statuses info
+	var $tweetinfo;		// statuses info
 	
-	public $limit = 5;	// status retrieve limit
+	public $limit = 25;	// max status retrieve limit
 	
 	
 	/**
@@ -38,8 +38,8 @@ class Twitter
 		$data = $this->getInfo($this->username);	// get basic info
 		$this->info = $data;		// assign to temp
 		
-		$statusdata = $this->getStatusInfo();	// get status info
-		$this->statusinfo = $statusdata;	// assign to temp
+		$tweetdata = $this->getTweetInfo($this->username);	// get status info
+		$this->tweetinfo = $tweetdata;	// assign to temp
 		
 		return True;
 	}
@@ -148,19 +148,19 @@ class Twitter
 	/**
 	 * Gets the users statuses count
 	 */
-	public function getStatusesCount()
+	public function getTweetsCount()
 	{
 		$info = $this->info;
-		return $info["statusescount"];
+		return $info["tweetscount"];
 	}		
 
 
 	/**
 	 * Gets the users latest status post
 	 */
-	public function getLatestStatus()
+	public function getLatestTweet()
 	{
-		$info = $this->statusinfo;
+		$info = $this->tweetinfo;
 		return $info[0]["text"];
 	}	
 
@@ -168,9 +168,9 @@ class Twitter
 	/**
 	 * Gets the users latest status URL
 	 */
-	public function getLatestStatusURL()
+	public function getLatestTweetsURL()
 	{
-		$info = $this->statusinfo;
+		$info = $this->tweetinfo;
 		return $info[0]["url"];
 	}
 
@@ -178,9 +178,9 @@ class Twitter
 	/**
 	 * Gets the users latest status's retweet count
 	 */
-	public function getLatestStatusRetweets()
+	public function getLatestTweetsRetweets()
 	{
-		$info = $this->statusinfo;
+		$info = $this->tweetinfo;
 		return $info[0]["retweets"];
 	}	
 	
@@ -188,9 +188,11 @@ class Twitter
 	/**
 	 * Gets the n number of statuses by the user
 	 */
-	public function getStatuses($n)
+	public function getTweets($n)
 	{
-		$data = $this->statusinfo;	// get data
+		$username = (isset($this->username)) ? $this->username : $username;	// get the username
+		
+		$data = $this->getTweetInfo($username);	// get data
 		
 		// minor error handling
 		if($n == 0 || empty($n) ) { $n = 1; }
@@ -244,7 +246,7 @@ class Twitter
 						"following" => $parse->friends_count,
 						"followers" => $parse->followers_count,
 						"background" => $parse->profile_background_image_url,
-						"statusescount" => $parse->statuses_count
+						"tweetscount" => $parse->statuses_count
 					      );
 									
 				return $info;	// and go
@@ -267,7 +269,7 @@ class Twitter
 	 * @param	(none) NONE
 	 * @return	(array) $info Key-Value pairs of status information
 	 */
-	public function getStatusInfo($username = NULL)
+	public function getTweetInfo($username = NULL)
 	{
 		if(isset($username))
 		{
@@ -294,8 +296,8 @@ class Twitter
 			// if status exists
 			if( !empty($status) )
 			{
-				$results[$i]["statusid"] = strip_tags($status->id);	// get id
-				$results[$i]["text"] = $this->linkify(html_entity_decode($status->text));	// get the actual status
+				$results[$i]["tweetid"] = strip_tags($status->id);	// get id
+				$results[$i]["text"] = $this->linkify(html_entity_decode($status->text));	// get the actual tweet
 				$results[$i]["retweets"] = strip_tags($status->retweet_count);	// get retweet count
 				$results[$i]["source"] = strip_tags($status->source);		// get the status publish source
 				$results[$i]["url"] = "http://twitter.com/".$username."/statuses/".$status->id;	// make status URL

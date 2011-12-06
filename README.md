@@ -26,11 +26,11 @@ To Install the class, you simply need to add this code
 * `getFollowersCount()`
 * `getFollowingCount()`
 * `getBackground()`
-* `getStatusesCount()`
-* `getLatestStatus()`
-* `getLatestStatusURL()`
-* `getLatestStatusRetweets()`
-* `getStatuses(n)`
+* `getTweetCount()`
+* `getLatestTweet()`
+* `getLatestTweetsURL()`
+* `getLatestTweetsRetweets()`
+* `getTweets(n)`
 
 
 ## TODO
@@ -38,6 +38,7 @@ To Install the class, you simply need to add this code
 * Add other methods
 * Allow publishing data
 * Finish OAuth integration
+* Integrate Twitter Stream API
 
 ## Examples
 	
@@ -65,7 +66,7 @@ To Install the class, you simply need to add this code
 		
 			$username = "lord_voldemort7";
 			$twitter = new Twitter($username);
-			$status = $twitter->getLatestStatus();
+			$status = $twitter->getLatestTweet();
 		
 			echo $status;
 		
@@ -80,7 +81,7 @@ To Install the class, you simply need to add this code
 		
 			$username = "lord_voldemort7";
 			$twitter = new Twitter($username);
-			$statuses = $twitter->getStatuses(5);	// gets first 5 statuses
+			$statuses = $twitter->getTweets(5);	// gets first 5 statuses
 			
 			foreach($statuses as $status)
 			{
@@ -97,4 +98,10 @@ To Install the class, you simply need to add this code
 			}
 			
 		
-		?>		
+		?>
+		
+
+## ChangeLog
+
+* Multiple User Support Added
+	

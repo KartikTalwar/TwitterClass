@@ -10,7 +10,7 @@ $twitter = new Twitter($username);
 
 
 // example
-$lateststatus = $twitter->getLatestStatus();
+$lateststatus = $twitter->getLatestTweet();
 echo $lateststatus;
 
 
@@ -25,7 +25,7 @@ echo $backgroundimage;
 
 
 // example
-$statuses = $twitter->getStatuses(5);	// gets first 5 statuses
+$statuses = $twitter->getTweets(5);	// gets first 5 statuses
 foreach($statuses as $status)
 {
 	$id = $status["id"];	// status ID
