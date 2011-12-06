@@ -30,12 +30,12 @@ class Twitter
 	 * @param	(string) $username The Twitter username and password (optional)
 	 * @return	(bool) Returns True
 	 */
-	public function __construct($username, $password=NULL)
+	public function __construct($username = NULL, $password= NULL)
 	{
-		$this->username = $username;	// assign username to temp
-		$this->password = $password;	// assign password to temp
+		$this->username = (isset($username)) ? $username : NULL;	// assign username to temp
+		$this->password = (isset($password)) ? $password : NULL;	// assign password to temp
 
-		$data = $this->getInfo();	// get basic info
+		$data = $this->getInfo($this->username);	// get basic info
 		$this->info = $data;		// assign to temp
 		
 		$statusdata = $this->getStatusInfo();	// get status info
@@ -216,9 +216,9 @@ class Twitter
 	 * @param	(none) NONE
 	 * @return	(array) $info Key-Value pairs of basic user information
 	 */
-	public function getInfo()
+	public function getInfo($username = NULL)
 	{
-		$username = $this->username;	// get the username
+		$username = (isset($this->username)) ? $this->username : $username;	// get the username
 		
 		// make sure its not empty
 		if( !empty($username) )
@@ -267,9 +267,19 @@ class Twitter
 	 * @param	(none) NONE
 	 * @return	(array) $info Key-Value pairs of status information
 	 */
-	public function getStatusInfo()
+	public function getStatusInfo($username = NULL)
 	{
-		$url = "http://twitter.com/statuses/user_timeline/".$this->getID().".xml";	// make the status url
+		if(isset($username))
+		{
+			$id = $this->getInfo($username);
+			$id = $id["id"];
+		}
+		else
+		{
+			$id = $this->getID();
+		}
+		
+		$url = "http://twitter.com/statuses/user_timeline/".$id.".xml";	// make the status url
 		$get = $this->load($url);	// get contents
 		$parse = $this->parseXML($get);	// parse results
 		$xml = $parse->status;
