@@ -1,3 +1,4 @@
+
 <?php
 
 ini_set("max_execution_time", 60);	// set execution time to a minute
@@ -8,7 +9,7 @@ ini_set("max_execution_time", 60);	// set execution time to a minute
  * The Twitter Class with helpful simple functions to embed the user details on your site
  *
  * @author     	Kartik Talwar
- * @version    	1.2
+ * @version    	1.22
  * @example	./examples.php
  * @link	http://github.com/KartikTalwar/Twitter-Class
  */
@@ -35,11 +36,18 @@ class Twitter
 		$this->username = (isset($username)) ? $username : NULL;	// assign username to temp
 		$this->password = (isset($password)) ? $password : NULL;	// assign password to temp
 
-		$data = $this->getInfo($this->username);	// get basic info
-		$this->info = $data;		// assign to temp
+		if( !empty($username) )
+		{
+			$data = $this->getInfo($this->username);	// get basic info
+			$this->info = $data;		// assign to temp
 		
-		$tweetdata = $this->getTweetInfo($this->username);	// get status info
-		$this->tweetinfo = $tweetdata;	// assign to temp
+			$tweetdata = $this->getTweetInfo($this->username);	// get status info
+			$this->tweetinfo = $tweetdata;	// assign to temp
+		}
+		else
+		{
+			$this->error(404);
+		}
 		
 		return True;
 	}
@@ -188,25 +196,32 @@ class Twitter
 	/**
 	 * Gets the n number of statuses by the user
 	 */
-	public function getTweets($n)
+	public function getTweets($n, $username = NULL)
 	{
-		$username = (isset($this->username)) ? $this->username : $username;	// get the username
+		$username = (isset($username)) ? $username : $this->username;	// get the username
 		
-		$data = $this->getTweetInfo($username);	// get data
-		
-		// minor error handling
-		if($n == 0 || empty($n) ) { $n = 1; }
-		if( $n > $this->limit ) { $n = $this->limit; }
-		
-		$result = array();	// init results
-		
-		// start iterring
-		for($i=0; $i<$n; $i++)
+		if( !empty($username) )
 		{
-			$result[] = $data[$i];	// append results
-		}
+			$data = $this->getTweetInfo($username);	// get data
+			
+			// minor error handling
+			if($n == 0 || empty($n) ) { $n = 1; }
+			if( $n > $this->limit ) { $n = $this->limit; }
 		
-		return $result;	// output it
+			$result = array();	// init results
+		
+			// start iterring
+			for($i=0; $i<$n; $i++)
+			{
+				$result[] = $data[$i];	// append results
+			}
+		
+			return $result;	// output it
+		}
+		else
+		{
+			return $this->error(404);
+		}
 	}
 	
 	
@@ -280,7 +295,7 @@ class Twitter
 		{
 			$id = $this->getID();
 		}
-		
+
 		$url = "http://twitter.com/statuses/user_timeline/".$id.".xml";	// make the status url
 		$get = $this->load($url);	// get contents
 		$parse = $this->parseXML($get);	// parse results
@@ -328,10 +343,12 @@ class Twitter
 		$text = preg_replace("#(^|[\n ])([a-z0-9&\-_.]+?)@([\w\-]+\.([\w\-\.]+\.)*[\w]+)#i", "$1<a href='mailto:$2@$3' class='t-email'>$2@$3</a>", $text);
 		
 		// replies
-		$text = preg_replace('/([\.|\,|\:|\?|\?|\>|\{|\(]?)@{1}(\w*)([\.|\,|\:|\!|\?|\>|\}|\)]?)\s/i', "$1<a href='http://twitter.com/$2' class='t-user'>@$2</a>$3 ", $text);
+		$text = preg_replace('/([\.|\,|\:|\?|\?|\>|\{|\(]?)@{1}(\w*)([\.|\,|\:|\!|\?|\>|\}|\)]?)\s/i', "$1<a href='http://twitter.com/$2' 
+class='t-user'>@$2</a>$3 ", $text);
 		
 		// hashtags
-		$text = preg_replace('/([\.|\,|\:|\?|\?|\>|\{|\(]?)#{1}(\w*)([\.|\,|\:|\!|\?|\>|\}|\)]?)\s/i', "$1<a href='http://twitter.com/search?q=%23$2' class='t-hash'>#$2</a>$3 ", $text);
+		$text = preg_replace('/([\.|\,|\:|\?|\?|\>|\{|\(]?)#{1}(\w*)([\.|\,|\:|\!|\?|\>|\}|\)]?)\s/i', "$1<a href='http://twitter.com/search?q=%23$2' 
+class='t-hash'>#$2</a>$3 ", $text);
 	
 		return $text;
 	}
@@ -396,7 +413,8 @@ class Twitter
 		// if file_get_contents exists use that
 		if( function_exists("file_get_contents"))
 		{
-			ini_set("user_agent", "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US) AppleWebKit/525.13 (KHTML, like Gecko) Chrome/11.0.696 Safari/525.13");	// set user agent
+			ini_set("user_agent", "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US) AppleWebKit/525.13 (KHTML, like Gecko) Chrome/11.0.696 Safari/525.13");	
+// set user agent
 			return file_get_contents($url);	// return the contents
 		}
 		// otherwise use curl
@@ -405,7 +423,8 @@ class Twitter
 			$ch = curl_init();
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 			curl_setopt($ch, CURLOPT_URL, $url);	// get the url contents
-			curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US) AppleWebKit/525.13 (KHTML, like Gecko) Chrome/11.0.696 Safari/525.13");	// set user agent
+			curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US) AppleWebKit/525.13 (KHTML, like Gecko) Chrome/11.0.696 
+Safari/525.13");	// set user agent
 			curl_setopt($ch, CURLOPT_HEADER	, TRUE);
 			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
 			curl_setopt($ch, CURLOPT_MAXREDIRS, 5);
@@ -438,6 +457,7 @@ class Twitter
 		}
 	
 	}
+
 
 }	// end class
 
