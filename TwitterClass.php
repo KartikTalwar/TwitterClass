@@ -1,4 +1,3 @@
-
 <?php
 
 ini_set("max_execution_time", 60);	// set execution time to a minute
@@ -28,7 +27,8 @@ class Twitter
 	 *
 	 * The following function assigns the data to variables
 	 *
-	 * @param	(string) $username The Twitter username and password (optional)
+	 * @param	(string) $username The Twitter username (optional)
+	 * @param	(string) $password The Twitter password (optional)
 	 * @return	(bool) Returns True
 	 */
 	public function __construct($username = NULL, $password= NULL)
@@ -54,7 +54,10 @@ class Twitter
 	
 	
 	/**
-	 * Gets the users twitter ID
+	 * Gets the users Twitter ID
+	 * 
+	 * @param	(NONE) 
+	 * @return	(int) Returns a user's Twitter ID
 	 */
 	public function getID()
 	{
@@ -65,6 +68,9 @@ class Twitter
 	
 	/**
 	 * Gets the users real name
+	 *
+	 * @param	(NONE) 
+	 * @return	(string) Returns the users real name
 	 */
 	public function getName()
 	{
@@ -75,6 +81,9 @@ class Twitter
 	
 	/**
 	 * Gets the users case-sensitive username
+	 *
+	 * @param	(NONE) 
+	 * @return	(string) Returns the users case-sensitive registered username
 	 */
 	public function getUsername()
 	{
@@ -85,6 +94,9 @@ class Twitter
 	
 	/**
 	 * Gets the users location
+	 *
+	 * @param	(NONE) 
+	 * @return	(string) Returns the users location
 	 */
 	public function getLocation()
 	{
@@ -95,6 +107,9 @@ class Twitter
 	
 	/**
 	 * Gets the users bio/description
+	 *
+	 * @param	(NONE) 
+	 * @return	(string) Returns the users biography
 	 */
 	public function getBio()
 	{
@@ -105,6 +120,9 @@ class Twitter
 
 	/**
 	 * Gets the users website url
+	 *
+	 * @param	(NONE) 
+	 * @return	(string) Returns the users website
 	 */
 	public function getWebsite()
 	{
@@ -115,6 +133,9 @@ class Twitter
 
 	/**
 	 * Gets the users profile avatar
+	 *
+	 * @param	(NONE) 
+	 * @return	(string) Returns the users profile picture URL
 	 */
 	public function getProfilePic()
 	{
@@ -125,6 +146,9 @@ class Twitter
 
 	/**
 	 * Gets the users followers count
+	 *
+	 * @param	(NONE) 
+	 * @return	(int) Returns the number of people that follow the user
 	 */
 	public function getFollowersCount()
 	{
@@ -135,6 +159,9 @@ class Twitter
 	
 	/**
 	 * Gets the users following count
+	 *
+	 * @param	(NONE) 
+	 * @return	(int) Returns the number of people the user is following
 	 */
 	public function getFollowingCount()
 	{
@@ -144,7 +171,10 @@ class Twitter
 
 
 	/**
-	 * Gets the users twitter background picture
+	 * Gets the users Twitter background picture
+	 *
+	 * @param	(NONE) 
+	 * @return	(string) Returns the URL of the users background image
 	 */
 	public function getBackground()
 	{
@@ -154,7 +184,10 @@ class Twitter
 
 
 	/**
-	 * Gets the users statuses count
+	 * Gets the users Tweet count
+	 *
+	 * @param	(NONE) 
+	 * @return	(int) Returns the total number of Tweets the user has posted
 	 */
 	public function getTweetsCount()
 	{
@@ -164,7 +197,10 @@ class Twitter
 
 
 	/**
-	 * Gets the users latest status post
+	 * Gets the users latest Tweet
+	 *
+	 * @param	(NONE) 
+	 * @return	(string) Returns the users latest Tweet
 	 */
 	public function getLatestTweet()
 	{
@@ -174,7 +210,10 @@ class Twitter
 
 
 	/**
-	 * Gets the users latest status URL
+	 * Gets the users latest Tweet URL
+	 *
+	 * @param	(NONE) 
+	 * @return	(string) Returns the URL of the users latest Tweet
 	 */
 	public function getLatestTweetsURL()
 	{
@@ -184,7 +223,10 @@ class Twitter
 
 
 	/**
-	 * Gets the users latest status's retweet count
+	 * Gets the users latest Tweet's retweets
+	 *
+	 * @param	(NONE) 
+	 * @return	(int) Returns the number of time the latest Tweet has been retweeted 
 	 */
 	public function getLatestTweetsRetweets()
 	{
@@ -194,7 +236,11 @@ class Twitter
 	
 	
 	/**
-	 * Gets the n number of statuses by the user
+	 * Gets the n number of Tweets by the user
+	 *
+	 * @param	(int) $n The number of Tweets to get
+	 * @param	(string) $username The username to get the Tweets from (optional)
+	 * @return	(array) Returns the key-value pairs of users Tweet info
 	 */
 	public function getTweets($n, $username = NULL)
 	{
@@ -230,7 +276,7 @@ class Twitter
 	 *
 	 * The following function gets the basic user details 
 	 *
-	 * @param	(none) NONE
+	 * @param	(string) $username The username to get the info of (optional)
 	 * @return	(array) $info Key-Value pairs of basic user information
 	 */
 	public function getInfo($username = NULL)
@@ -281,7 +327,7 @@ class Twitter
 	 *
 	 * The following function gets latest user statuses
 	 *
-	 * @param	(none) NONE
+	 * @param	(string) $username The Twitter username to get Tweets of (optional)
 	 * @return	(array) $info Key-Value pairs of status information
 	 */
 	public function getTweetInfo($username = NULL)
