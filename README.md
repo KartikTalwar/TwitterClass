@@ -1,4 +1,4 @@
-#PHP Twitter Class
+# PHP Twitter Class
 
 ## Description
 
@@ -8,11 +8,13 @@ This class is a collection of helpful functions to help make retrieving your twi
 
 To Install the class, you simply need to add this code
 
-	<?php
-	
-		require("TwitterClass.php");	// include class
-	
-	?>
+```
+<?php
+
+	require("TwitterClass.php");	// include class
+
+?>
+```
 
 ## Functions
 
@@ -37,6 +39,7 @@ To Install the class, you simply need to add this code
 
 * Add other methods
 * Allow publishing data
+* <del>Add Multi-User Support </del>
 * Finish OAuth integration
 * Integrate Twitter Stream API
 
@@ -45,60 +48,66 @@ To Install the class, you simply need to add this code
 1. **Getting Followers Count** :
 	The following method will get the users followers count
 
-		<?php
+	```
+	<?php
+	
+		require("TwitterClass.php");
+	
+		$username = "lord_voldemort7";
+		$twitter = new Twitter($username);
+		$followers = $twitter->getFollowersCount();
 		
-			require("TwitterClass.php");
+		echo $followers;
 		
-			$username = "lord_voldemort7";
-			$twitter = new Twitter($username);
-			$followers = $twitter->getFollowersCount();
-		
-			echo $followers;
-		
-		?>
+	?>
+	```
 
 1. **Getting Latest Status** :
 	The following method will get the users latest Twitter status
 
-		<?php
-		
-			require("TwitterClass.php");
-		
-			$username = "lord_voldemort7";
-			$twitter = new Twitter($username);
-			$status = $twitter->getLatestTweet();
-		
-			echo $status;
-		
-		?>
+	```
+	<?php
+	
+		require("TwitterClass.php");
+	
+		$username = "lord_voldemort7";
+		$twitter = new Twitter($username);
+		$status = $twitter->getLatestTweet();
+	
+		echo $status;
+	
+	?>
+	```
 		
 1. **Getting 5 Latest Statuses** :
 	The following method will get the users first 5 statuses
 
-		<?php
+	```
+	<?php
+	
+		require("TwitterClass.php");
+	
+		$username = "lord_voldemort7";
+		$twitter = new Twitter($username);
+		$statuses = $twitter->getTweets(5);	// gets first 5 statuses
 		
-			require("TwitterClass.php");
-		
-			$username = "lord_voldemort7";
-			$twitter = new Twitter($username);
-			$statuses = $twitter->getTweets(5);	// gets first 5 statuses
+		foreach($statuses as $status)
+		{
+			$id = $status["id"];	// status ID
+			$text = $status["text"];	// actual status
+			$retweets = $status["retweets"];	// number of retweets
+			$source = $status["source"];	// where the tweet was published from (eg tweetdeck)
+			$url = $status["url"];	// status URL
 			
-			foreach($statuses as $status)
-			{
-				$id = $status["id"];	// status ID
-				$text = $status["text"];	// actual status
-				$retweets = $status["retweets"];	// number of retweets
-				$source = $status["source"];	// where the tweet was published from (eg tweetdeck)
-				$url = $status["url"];	// status URL
-				
-				echo "<p> $text </p>";
-				echo "Retweets : <a href='$url'> $retweets </a> | ";
-				echo "Tweeted Via: $source ";
-				echo "<br />";
-			}
-			
+			echo "<p> $text </p>";
+			echo "Retweets : <a href='$url'> $retweets </a> | ";
+			echo "Tweeted Via: $source ";
+			echo "<br />";
+		}
 		
-		?>
+	
+	?>
+	```
 		
 
 ## ChangeLog
