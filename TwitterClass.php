@@ -389,12 +389,10 @@ class Twitter
 		$text = preg_replace("#(^|[\n ])([a-z0-9&\-_.]+?)@([\w\-]+\.([\w\-\.]+\.)*[\w]+)#i", "$1<a href='mailto:$2@$3' class='t-email'>$2@$3</a>", $text);
 		
 		// replies
-		$text = preg_replace('/([\.|\,|\:|\?|\?|\>|\{|\(]?)@{1}(\w*)([\.|\,|\:|\!|\?|\>|\}|\)]?)\s/i', "$1<a href='http://twitter.com/$2' 
-class='t-user'>@$2</a>$3 ", $text);
+		$text = preg_replace('/([\.|\,|\:|\?|\?|\>|\{|\(]?)@{1}(\w*)([\.|\,|\:|\!|\?|\>|\}|\)]?)\s/i', "$1<a href='http://twitter.com/$2' class='t-user'>@$2</a>$3 ", $text);
 		
 		// hashtags
-		$text = preg_replace('/([\.|\,|\:|\?|\?|\>|\{|\(]?)#{1}(\w*)([\.|\,|\:|\!|\?|\>|\}|\)]?)\s/i', "$1<a href='http://twitter.com/search?q=%23$2' 
-class='t-hash'>#$2</a>$3 ", $text);
+		$text = preg_replace('/([\.|\,|\:|\?|\?|\>|\{|\(]?)#{1}(\w*)([\.|\,|\:|\!|\?|\>|\}|\)]?)\s/i', "$1<a href='http://twitter.com/search?q=%23$2' class='t-hash'>#$2</a>$3 ", $text);
 	
 		return $text;
 	}
@@ -459,8 +457,7 @@ class='t-hash'>#$2</a>$3 ", $text);
 		// if file_get_contents exists use that
 		if( function_exists("file_get_contents"))
 		{
-			ini_set("user_agent", "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US) AppleWebKit/525.13 (KHTML, like Gecko) Chrome/11.0.696 Safari/525.13");	
-// set user agent
+			ini_set("user_agent", "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US) AppleWebKit/525.13 (KHTML, like Gecko) Chrome/11.0.696 Safari/525.13");	// set user agent
 			return file_get_contents($url);	// return the contents
 		}
 		// otherwise use curl
@@ -469,8 +466,7 @@ class='t-hash'>#$2</a>$3 ", $text);
 			$ch = curl_init();
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 			curl_setopt($ch, CURLOPT_URL, $url);	// get the url contents
-			curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US) AppleWebKit/525.13 (KHTML, like Gecko) Chrome/11.0.696 
-Safari/525.13");	// set user agent
+			curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US) AppleWebKit/525.13 (KHTML, like Gecko) Chrome/11.0.696 Safari/525.13");	// set user agent
 			curl_setopt($ch, CURLOPT_HEADER	, TRUE);
 			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
 			curl_setopt($ch, CURLOPT_MAXREDIRS, 5);
