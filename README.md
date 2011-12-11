@@ -8,7 +8,7 @@ This class is a collection of helpful functions to help make retrieving your twi
 
 To Install the class, you simply need to add this code
 
-```
+```php
 <?php
 
 	require("TwitterClass.php");	// include class
@@ -48,7 +48,7 @@ To Install the class, you simply need to add this code
 1. **Getting Followers Count** :
 	The following method will get the users followers count
 
-	```
+	```php
 	<?php
 	
 		require("TwitterClass.php");
@@ -65,7 +65,7 @@ To Install the class, you simply need to add this code
 1. **Getting Latest Status** :
 	The following method will get the users latest Twitter status
 
-	```
+	```php
 	<?php
 	
 		require("TwitterClass.php");
@@ -82,7 +82,7 @@ To Install the class, you simply need to add this code
 1. **Getting 5 Latest Statuses** :
 	The following method will get the users first 5 statuses
 
-	```
+	```php
 	<?php
 	
 		require("TwitterClass.php");
