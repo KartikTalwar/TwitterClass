@@ -56,7 +56,7 @@ class Twitter
 	/**
 	 * Gets the users Twitter ID
 	 * 
-	 * @param	(NONE) 
+	 * @param	() NONE 
 	 * @return	(int) Returns a user's Twitter ID
 	 */
 	public function getID()
@@ -69,7 +69,7 @@ class Twitter
 	/**
 	 * Gets the users real name
 	 *
-	 * @param	(NONE) 
+	 * @param	() NONE 
 	 * @return	(string) Returns the users real name
 	 */
 	public function getName()
@@ -82,7 +82,7 @@ class Twitter
 	/**
 	 * Gets the users case-sensitive username
 	 *
-	 * @param	(NONE) 
+	 * @param	() NONE 
 	 * @return	(string) Returns the users case-sensitive registered username
 	 */
 	public function getUsername()
@@ -95,7 +95,7 @@ class Twitter
 	/**
 	 * Gets the users location
 	 *
-	 * @param	(NONE) 
+	 * @param	() NONE 
 	 * @return	(string) Returns the users location
 	 */
 	public function getLocation()
@@ -108,7 +108,7 @@ class Twitter
 	/**
 	 * Gets the users bio/description
 	 *
-	 * @param	(NONE) 
+	 * @param	() NONE 
 	 * @return	(string) Returns the users biography
 	 */
 	public function getBio()
@@ -121,7 +121,7 @@ class Twitter
 	/**
 	 * Gets the users website url
 	 *
-	 * @param	(NONE) 
+	 * @param	() NONE 
 	 * @return	(string) Returns the users website
 	 */
 	public function getWebsite()
@@ -134,7 +134,7 @@ class Twitter
 	/**
 	 * Gets the users profile avatar
 	 *
-	 * @param	(NONE) 
+	 * @param	() NONE 
 	 * @return	(string) Returns the users profile picture URL
 	 */
 	public function getProfilePic()
@@ -147,7 +147,7 @@ class Twitter
 	/**
 	 * Gets the users followers count
 	 *
-	 * @param	(NONE) 
+	 * @param	() NONE 
 	 * @return	(int) Returns the number of people that follow the user
 	 */
 	public function getFollowersCount()
@@ -160,7 +160,7 @@ class Twitter
 	/**
 	 * Gets the users following count
 	 *
-	 * @param	(NONE) 
+	 * @param	() NONE 
 	 * @return	(int) Returns the number of people the user is following
 	 */
 	public function getFollowingCount()
@@ -173,7 +173,7 @@ class Twitter
 	/**
 	 * Gets the users Twitter background picture
 	 *
-	 * @param	(NONE) 
+	 * @param	() NONE 
 	 * @return	(string) Returns the URL of the users background image
 	 */
 	public function getBackground()
@@ -186,7 +186,7 @@ class Twitter
 	/**
 	 * Gets the users Tweet count
 	 *
-	 * @param	(NONE) 
+	 * @param	() NONE 
 	 * @return	(int) Returns the total number of Tweets the user has posted
 	 */
 	public function getTweetsCount()
@@ -199,7 +199,7 @@ class Twitter
 	/**
 	 * Gets the users latest Tweet
 	 *
-	 * @param	(NONE) 
+	 * @param	() NONE 
 	 * @return	(string) Returns the users latest Tweet
 	 */
 	public function getLatestTweet()
@@ -212,7 +212,7 @@ class Twitter
 	/**
 	 * Gets the users latest Tweet URL
 	 *
-	 * @param	(NONE) 
+	 * @param	() NONE 
 	 * @return	(string) Returns the URL of the users latest Tweet
 	 */
 	public function getLatestTweetsURL()
@@ -225,7 +225,7 @@ class Twitter
 	/**
 	 * Gets the users latest Tweet's retweets
 	 *
-	 * @param	(NONE) 
+	 * @param	() NONE 
 	 * @return	(int) Returns the number of time the latest Tweet has been retweeted 
 	 */
 	public function getLatestTweetsRetweets()
