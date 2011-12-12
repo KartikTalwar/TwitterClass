@@ -42,6 +42,7 @@ To Install the class, you simply need to add this code
 * <del>Add Multi-User Support </del>
 * Finish OAuth integration
 * Integrate Twitter Stream API
+* Allow search methods 
 
 ## Examples
 	
