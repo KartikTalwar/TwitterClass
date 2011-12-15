@@ -44,6 +44,12 @@ To Install the class, you simply need to add this code
 * Integrate Twitter Stream API
 * Allow search methods 
 
+
+## ChangeLog
+
+* Multiple User Support Added
+
+
 ## Examples
 	
 1. **Getting Followers Count** :
@@ -109,10 +115,3 @@ To Install the class, you simply need to add this code
 	
 	?>
 	```
-		
-
-
-## ChangeLog
-
-* Multiple User Support Added
-	
