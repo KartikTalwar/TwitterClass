@@ -63,7 +63,7 @@ To Install the class, you simply need to add this code
 	?>
 	```
 
-1. **Getting Latest Status** :
+2. **Getting Latest Status** :
 	The following method will get the users latest Twitter status
 
 	```php
@@ -80,7 +80,7 @@ To Install the class, you simply need to add this code
 	?>
 	```
 		
-1. **Getting 5 Latest Statuses** :
+3. **Getting 5 Latest Statuses** :
 	The following method will get the users first 5 statuses
 
 	```php
@@ -110,6 +110,7 @@ To Install the class, you simply need to add this code
 	?>
 	```
 		
+
 
 ## ChangeLog
 
