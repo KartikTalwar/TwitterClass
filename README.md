@@ -132,7 +132,7 @@ To Install the class, you simply need to add this code
 		foreach($search as $results)
 		{
 			$time = $results["created"];	// relative time
-			$from = $results["from];	// user
+			$from = $results["from"];	// user
 			$tweet = $results["tweet"];	// the text
 	
 			
