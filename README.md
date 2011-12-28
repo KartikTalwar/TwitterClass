@@ -33,6 +33,7 @@ To Install the class, you simply need to add this code
 * `getLatestTweetsURL()`
 * `getLatestTweetsRetweets()`
 * `getTweets(n)`
+* `search()`
 
 
 ## TODO
@@ -42,11 +43,12 @@ To Install the class, you simply need to add this code
 * <del>Add Multi-User Support </del>
 * Finish OAuth integration
 * Integrate Twitter Stream API
-* Allow search methods 
+* <del>Allow search methods </del>
 
 
 ## ChangeLog
 
+* Search Method Added
 * Multiple User Support Added
 
 
@@ -115,3 +117,31 @@ To Install the class, you simply need to add this code
 	
 	?>
 	```
+	
+4. **Displaying Search Results** :
+	The following method will display the first 5 search results
+
+	```php
+	<?php
+	
+		require("TwitterClass.php");
+	
+		$twitter = new Twitter();
+		$search = $twitter->search("@google");	// search query
+		
+		foreach($search as $results)
+		{
+			$time = $results["created"];	// relative time
+			$from = $results["from];	// user
+			$tweet = $results["tweet"];	// the text
+	
+			
+			echo "<p> $text </p>";
+			echo "From : <a href=\"http://twitter.com/$from\"> $from </a> | ";
+			echo "Tweeted : $time ";
+			echo "<br />";
+		}
+		
+	
+	?>
+	```	
