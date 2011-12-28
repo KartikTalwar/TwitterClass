@@ -8,7 +8,7 @@ ini_set("max_execution_time", 60);	// set execution time to a minute
  * The Twitter Class with helpful simple functions to embed the user details on your site
  *
  * @author     	Kartik Talwar
- * @version    	1.22
+ * @version    	1.3
  * @example	./examples.php
  * @link	http://github.com/KartikTalwar/Twitter-Class
  */
@@ -367,7 +367,41 @@ class Twitter
 		
 		return $results;	// output status
 	}
-
+	
+	
+	/**
+	 * Search Function
+	 *
+	 * The following function gets latest user statuses
+	 *
+	 * @param	(string) $query The search query
+ 	 * @param	(int) $results The number of results to display
+	 * @return	(array) $info Key-Value pairs of status information
+	 */
+	public function search($query, $results = 10)
+	{
+		if(!empty($query))
+		{
+			$url = "http://search.twitter.com/search.json?rpp=".$results."&include_entities=true&result_type=mixed&q=".urlencode($query);	// make the status url
+			$get = $this->load($url);	// get contents
+			$parse = json_decode($get);
+			$response = array();
+		
+			$i = 0;
+			foreach($parse->results as $result)
+			{
+				$response[$i]['created'] = $this->relativeTime(strtotime($result->created_at));
+				$response[$i]['from'] = $result->from_user;
+				$response[$i]['tweet'] = $this->linkify(html_entity_decode($result->text));	// get the actual tweet
+				$i++;
+			}
+		
+			return $response;
+		}
+		
+		return $this->error(503);
+	}
+	
 	
 	/**
 	 * Linkify Function
@@ -399,6 +433,95 @@ class Twitter
 	
 	
 	/**
+	 * Relative Time Function
+	 *
+	 * The following function converts unix timestamp to relative time
+	 *
+	 * @param	(int) time The UNIX timestamp
+	 * @return	(string) Relative time
+	 */	
+	public function relativeTime($time)
+	{
+
+		$second = 1;
+		$minute = 60;
+		$hour = 3600;
+		$day = 86400;
+		$month = 2592000;
+
+		$delta = time() - $time;
+
+		if ($delta < 1*$second)
+		{
+			if( $delta == 1 ) 
+			{
+				return "one second ago"; 
+			}
+			else
+			{
+				return $delta." seconds ago";
+			}
+		}
+
+		if ($delta < 2 * $second)
+		{
+			return "a minute ago";
+		}
+
+		if ($delta < 45 * $minute)
+		{
+			return floor($delta / $minute) . " minutes ago";
+		}
+
+		if ($delta < 90 * $minute)
+		{
+			return "an hour ago";
+		}
+
+		if ($delta < 24 * $hour)
+		{
+			return floor($delta / $hour) . " hours ago";
+		}
+
+		if ($delta < 48 * $hour)
+		{
+			return "yesterday";
+		}
+
+		if ($delta < 30 * $day)
+		{
+			return floor($delta / $day) . " days ago";
+		}
+
+		if ($delta < 12 * $month)
+		{
+			$months = floor($delta / $day / 30);
+			if( $months <= 1 ) 
+			{
+				return "one month ago"; 
+			}
+			else
+			{
+				return $months . " months ago";
+			}
+		}
+		else
+		{
+			$years = floor($delta / $day / 365);
+			if( $years <= 1 )
+			{
+				return "one year ago"; 
+			}
+			else
+			{
+				$years . " years ago";
+			}
+		}
+
+	}
+	
+	
+	/**
 	 * Error Response Function
 	 *
 	 * The following function returns the error description
@@ -412,6 +535,7 @@ class Twitter
 		$messages = array( 404 => "Invalid Username",
 				   500 => "Invalid Password",
 				   200 => "OK",
+				   503 => "Invalid Query"
 				 );
 		
 		return $messages[$code];	// shout error
@@ -504,4 +628,4 @@ class Twitter
 }	// end class
 
 
-?>
+?>	
